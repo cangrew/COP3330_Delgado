@@ -17,6 +17,7 @@ public class Encrypter {
       a[i] = a[i]%10;
     }
 
+		//Swaps first digit with third and second with fourth
     int temp = a[0];
     a[0] = a[2];
     a[2] = temp;
@@ -28,12 +29,13 @@ public class Encrypter {
   }
 
 
-  public static int CtoI(char a){
+	//Converts Char to the intended int
+	public static int CtoI(char a){
     int b = a - '0';
     return b;
   }
 
-
+	//Converts the array into a String
   public static String arrToS(int[] number){
     String output = "";
     for(int i = 0; i < 4; i++){
