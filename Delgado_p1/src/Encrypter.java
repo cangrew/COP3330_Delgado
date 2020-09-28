@@ -10,12 +10,12 @@ public class Encrypter {
 	}
 
 
-  public static String encrypt(String input){
+ public static String encrypt(String input){
     int a[] = new int[4];
     for(int i = 0; i < 4; i++){
       a[i] = CtoI(input.charAt(i)) + 7;
       a[i] = a[i]%10;
-    }
+  }
 
 		//Swaps first digit with third and second with fourth
     int temp = a[0];
