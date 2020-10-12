@@ -1,10 +1,4 @@
 
-import java.util.*;
-import java.io.*;
-import java.awt.*;
+public abstract class Shape2D extends Shape {
 
-abstract class Shape2D extends Shape {
-	public static void main(String[] args) {
-		/* code */
-	}
 }

@@ -1,12 +1,8 @@
 
-import java.util.*;
-import java.io.*;
-import java.awt.*;
+public abstract class Shape {
 
-abstract class Shape {
+	public abstract String getName();
 
-  
-	public static void main(String[] args) {
+	public abstract double getArea();
 
-	}
 }

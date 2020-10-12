@@ -1,10 +1,6 @@
 
-import java.util.*;
-import java.io.*;
-import java.awt.*;
+public abstract class Shape3D extends Shape {
 
-abstract class Shape3D extends Shape {
-	public static void main(String[] args) {
+	public abstract double getVolume();
 
-	}
 }
