@@ -3,44 +3,95 @@ import java.util.ArrayList;
 public class TaskList extends ArrayList<TaskItem> {
 
     public void addTask(String t /* title */ , String d /* description */, String date ){
-        TaskItem task = new TaskItem(t,d,date);
+        TaskItem task = TaskItem.newTask(t,d,date);
+        if(task == null){
+            return;
+        }
         this.add(task);
     }
 
-    public void editTask(int pos, String t /* title */ , String d /* description */, String date ){
+    public boolean editTask(int pos, String t /* title */ , String d /* description */, String date ){
+        if(pos >= this.size()){
+            System.out.println("WARNING: Invalid Position.");
+            return false;
+        }
         this.get(pos).editTitle(t);
-        this.get(pos).editDecription(d);
+        this.get(pos).editDescription(d);
         this.get(pos).editDate(date);
+        return true;
     }
 
-    public void markTask(int pos){
+    public boolean removeTask(int pos) {
+        if(pos >= this.size()){
+            System.out.println("WARNING: Invalid Position.");
+            return false;
+        }
+        this.remove(pos);
+        return true;
+    }
+
+    public boolean markTask(int pos){
+        if(pos >= this.size()){
+            System.out.println("WARNING: Invalid Position.");
+            return false;
+        }
         this.get(pos).complete();
+        return true;
     }
 
-    public void unMarkTask(int pos){
+    public boolean unMarkTask(int pos){
+        if(pos >= this.size()){
+            System.out.println("WARNING: Invalid Position.");
+            return false;
+        }
         this.get(pos).unComplete();
+        return true;
     }
 
-    public void printUncompleted(){
+    public boolean printUncompleted(){
         System.out.println("\nUncompleted Tasks\n--------------\n");
         int i = 0;
+        boolean empty = true;
+        for(TaskItem task : this){
+            if(!task.isCompleted()){
+                empty = false;
+            }
+            i++;
+        }
+        if(empty){
+            System.out.println("WARNING: no uncompleted tasks.");
+            return false;
+        }
         for(TaskItem task : this){
             if(!task.isCompleted()){
                 System.out.println(i + ") [" + task.getDate() + "] " + task.getTitle() + ": " + task.getDescription());
             }
             i++;
         }
+        return true;
     }
 
-    public void printCompleted(){
+    public boolean printCompleted(){
         System.out.println("\nCompleted Tasks\n--------------\n");
         int i = 0;
+        boolean empty = true;
+        for(TaskItem task : this){
+            if(task.isCompleted()){
+                empty = false;
+            }
+            i++;
+        }
+        if(empty){
+            System.out.println("WARNING: no completed tasks.");
+            return false;
+        }
         for(TaskItem task : this){
             if(task.isCompleted()){
                 System.out.println(i + ") [" + task.getDate() + "] " + task.getTitle() + ": " + task.getDescription());
             }
             i++;
         }
+        return true;
     }
 
     public void printTaskList(){

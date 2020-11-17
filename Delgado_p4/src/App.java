@@ -83,35 +83,14 @@ public class App {
         d = sc.nextLine();
         System.out.print("Task due date (YYYY-MM-DD): ");
         date = sc.nextLine();
-        if(t.length() < 1){
-            System.out.println("WARNING: title must be at least 1 character long; task not created.");
-            return;
-        }
-        if(!isValidDate(date)){
-            System.out.println("WARNING: invalid due date; task not created.");
-            return;
-        }
         list.addTask(t,d,date);
     }
 
-    private static boolean isValidDate(String date){
-        if(date.length() != 10) return false;
-        for(int i = 0; i < date.length();i++){
-            if(i < 4 || (i >4 && i <7) || i > 7){
-                if(!Character.isDigit(date.charAt(i))){
-                    return false;
-                }
-            }
-            if(i == 4 || i == 7) {
-                if (date.charAt(i) != '-') {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     private static void editList(TaskList list){
+        if(list.size() < 1){
+            System.out.println("WARNING: List is empty.");
+            return;
+        }
         String t,d,date;
         int answer;
 
@@ -120,6 +99,11 @@ public class App {
         answer = sc.nextInt();
         sc.nextLine();
 
+        if(answer >= list.size()){
+            System.out.println("WARNING: invalid Selection.");
+            return;
+        }
+
         System.out.print("Enter a new title for task "+answer+": ");
         t = sc.nextLine();
         System.out.print("Enter a new description for task "+answer+": ");
@@ -127,10 +111,11 @@ public class App {
         System.out.print("Enter a new task due date (YYYY-MM-DD) for task "+answer+": ");
         date = sc.nextLine();
 
-        list.editTask(answer,t,d,date);
+        list.editTask(answer, t, d, date);
     }
 
     private static void remove(TaskList list){
+
         int answer;
 
         list.printTaskList();
@@ -138,12 +123,18 @@ public class App {
         answer = sc.nextInt();
         sc.nextLine();
 
-        list.remove(answer);
+        list.removeTask(answer);
     }
 
     private static void mark(TaskList list){
+        if(list.size() < 1){
+            System.out.println("WARNING: List is empty.");
+            return;
+        }
         int answer;
-        list.printUncompleted();
+
+        boolean empty = !list.printUncompleted();
+        if(empty) return;
         System.out.print("\n\nWhich task will you mark as completed?: ");
         answer = sc.nextInt();
         sc.nextLine();
@@ -151,8 +142,13 @@ public class App {
     }
 
     private static void unMark(TaskList list){
+        if(list.size() < 1){
+            System.out.println("WARNING: List is empty.");
+            return;
+        }
         int answer;
-        list.printCompleted();
+        boolean empty = !list.printCompleted();
+        if(empty) return;
         System.out.print("\n\nWhich task will you unmark as completed?: ");
         answer = sc.nextInt();
         sc.nextLine();
@@ -160,6 +156,10 @@ public class App {
     }
 
     private static void saveList(TaskList list){
+        if(list.size() < 1){
+            System.out.println("WARNING: List is empty.");
+            return;
+        }
         String name;
         System.out.print("Enter the filename to save as: ");
         name = sc.nextLine();
