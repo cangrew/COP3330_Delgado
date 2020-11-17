@@ -42,4 +42,8 @@ public class TaskItem {
         completed = true;
     }
 
+    public void unComplete(){
+        completed = false;
+    }
+
 }
